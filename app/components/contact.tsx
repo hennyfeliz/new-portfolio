@@ -46,13 +46,50 @@ export default function Contact() {
   return (
     <section className="relative overflow-hidden h-screen snap-center flex items-center justify-center">
       <div className="container relative z-10 mx-auto px-4 w-full">
-        <div className="grid gap-12 items-center max-w-2xl mx-auto">
+        <div className="flex items-center justify-center max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false }}
             transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
+            style={{
+              background: "rgba(240, 223, 223, 0.09)",
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+              backdropFilter: "blur(5.4px)",
+              WebkitBackdropFilter: "blur(5.4px)",
+              border: "2px solid rgba(240, 223, 223, 0.24)",
+              padding: "2rem",
+              width: "60%",
+            }}
+            className="flex flex-col"
           >
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="mb-6"
+            >
+              <motion.h2
+                className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 1, delay: 0.2 }}
+              >
+                Get in Touch
+              </motion.h2>
+              <motion.p
+                className="text-gray-400"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false }}
+                transition={{ duration: 1, delay: 0.4 }}
+              >
+                Interested in collaborating or working together? Let's
+                create something amazing together.
+              </motion.p>
+            </motion.div>
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
@@ -64,25 +101,6 @@ export default function Contact() {
                   viewport={{ once: false }}
                   transition={{ duration: 1, delay: 0.8 }}
                 >
-                  <motion.h2
-                    className="mb-4 text-3xl font-bold tracking-tighter sm:text-4xl"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 1, delay: 0.2 }}
-                  >
-                    Get in Touch
-                  </motion.h2>
-                  <motion.p
-                    className="text-gray-400"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: false }}
-                    transition={{ duration: 1, delay: 0.4 }}
-                  >
-                    Interested in collaborating or working together? Let's
-                    create something amazing together.
-                  </motion.p>
                   <FormField
                     control={form.control}
                     name="name"
@@ -90,7 +108,11 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Name</FormLabel>
                         <FormControl>
-                          <Input placeholder="Your name" {...field} />
+                          <Input 
+                            placeholder="Your name" 
+                            className="rounded-none bg-gray-800 border-2 border-gray-600" 
+                            {...field} 
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -110,7 +132,11 @@ export default function Contact() {
                       <FormItem>
                         <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="your@email.com" {...field} />
+                          <Input 
+                            placeholder="your@email.com" 
+                            className="rounded-none bg-gray-800 border-2 border-gray-600" 
+                            {...field} 
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -132,7 +158,7 @@ export default function Contact() {
                         <FormControl>
                           <Textarea
                             placeholder="Tell me about your project..."
-                            className="min-h-[120px]"
+                            className="min-h-[120px] rounded-none bg-gray-800 border-2 border-gray-600"
                             {...field}
                           />
                         </FormControl>
@@ -147,7 +173,7 @@ export default function Contact() {
                   viewport={{ once: false }}
                   transition={{ duration: 1, delay: 1.4 }}
                 >
-                  <Button type="submit" className="w-full">
+                  <Button type="submit" className="w-full rounded-none">
                     Send Message
                   </Button>
                 </motion.div>
@@ -156,37 +182,18 @@ export default function Contact() {
           </motion.div>
         </div>
       </div>
-      {/* real footer */}
       <motion.footer
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false, margin: "-50px" }}
         transition={{ duration: 1.2, ease: "easeOut" }}
-        className="border-t py-8 w-full absolute bottom-0"
+        className="border-t border-zinc-800 py-8 w-full absolute bottom-0"
       >
         <div className="container mx-auto px-4">
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <p className="text-sm text-gray-400">
               © {new Date().getFullYear()} Henny Feliz. All rights reserved.
             </p>
-            <div className="flex gap-6">
-              <a
-                href="https://www.linkedin.com/in/henny-m-feliz-ferreras-392a61202"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                GitHub
-              </a>
-            </div>
           </div>
         </div>
       </motion.footer>

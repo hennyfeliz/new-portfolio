@@ -47,24 +47,17 @@ export default function Gallery() {
           {images.map((image, index) => (
             <motion.div
               key={index}
-              className="group relative overflow-hidden cursor-pointer"
+              className="group relative overflow-hidden cursor-pointer transition-all duration-300 hover:translate-x-1 hover:-translate-y-1"
               style={{
                 background: "rgba(240, 223, 223, 0.09)",
-                borderRadius: "16px",
                 boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
                 backdropFilter: "blur(5.4px)",
                 WebkitBackdropFilter: "blur(5.4px)",
-                border: "1px solid rgba(240, 223, 223, 0.24)",
-              }}
+              } as React.CSSProperties}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: false, margin: "-50px" }}
               transition={{ duration: 1, delay: index * 0.15, ease: "easeOut" }}
-              whileHover={{ 
-                x: 4, 
-                y: -4,
-                transition: { duration: 0.3 }
-              }}
             >
               <div className="aspect-[2/3] overflow-hidden">
                 <div className="h-full w-full bg-gradient-to-br from-white/10 to-white/5 flex flex-col items-center justify-center p-6">

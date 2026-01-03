@@ -84,7 +84,7 @@ export default function Portfolio() {
               <Button
                 variant={selectedCategory === category ? "default" : "outline"}
                 onClick={() => setSelectedCategory(category)}
-                className="text-sm capitalize px-8 py-1.5 h-auto min-w-[120px]"
+                className="text-sm capitalize px-8 py-1.5 h-auto min-w-[120px] rounded-none"
               >
                 {category === "all" ? "All" : category === "react" ? "React" : category === "java" ? "Java" : "React Native"}
               </Button>
@@ -104,14 +104,14 @@ export default function Portfolio() {
                 transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
               >
                 <Card 
-                  className="overflow-hidden transition-all duration-300 hover:translate-x-1 hover:-translate-y-1 cursor-pointer"
+                  className="overflow-hidden transition-all duration-300 hover:translate-x-1 hover:-translate-y-1 cursor-pointer shadow-none bg-transparent rounded-none border-2"
                   style={{
                     background: "rgba(240, 223, 223, 0.09)",
-                    borderRadius: "16px",
+                    borderRadius: "0",
                     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
                     backdropFilter: "blur(5.4px)",
                     WebkitBackdropFilter: "blur(5.4px)",
-                    border: "1px solid rgba(240, 223, 223, 0.24)",
+                    border: "2px solid rgba(240, 223, 223, 0.24)",
                   }}
                 >
                   <CardContent className="p-0">

@@ -1,9 +1,13 @@
 import "@/styles/globals.css"
-import { Inter } from "next/font/google"
+import { Onest } from "next/font/google"
 import type React from "react"
 import type { Metadata } from "next"
 
-const inter = Inter({ subsets: ["latin"] })
+const onest = Onest({ 
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-onest"
+})
 
 export const metadata: Metadata = {
   title: "Henny Feliz - Software Developer",
@@ -17,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark h-full overflow-hidden">
-      <body className={`${inter.className} h-full overflow-hidden`}>{children}</body>
+    <html lang="en" className={`dark h-full overflow-hidden ${onest.variable}`}>
+      <body className={`${onest.className} h-full overflow-hidden`} style={{ fontFamily: onest.style.fontFamily }}>{children}</body>
     </html>
   )
 }
