@@ -1,11 +1,4 @@
-export interface Project {
-  id: string
-  title: string
-  description: string
-  technologies: string[]
-  category: "react" | "java" | "react-native" | "all"
-  imageUrl?: string
-}
+export type { Project, ProjectCategory } from "@/lib/projects"
 
 export interface ContactFormData {
   name: string

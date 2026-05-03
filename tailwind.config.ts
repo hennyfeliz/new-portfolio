@@ -43,6 +43,10 @@ const config: Config = {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
+        accentRed: {
+          DEFAULT: "hsl(var(--accent-red))",
+          foreground: "hsl(0 0% 98%)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

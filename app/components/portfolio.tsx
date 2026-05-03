@@ -1,130 +1,160 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import {
+  CATEGORY_GRADIENT,
+  CATEGORY_LABELS,
+  PROJECTS,
+  type ProjectCategory,
+} from "@/lib/projects"
+
+type Filter = "all" | ProjectCategory
+
+const FILTERS: Filter[] = ["all", "react", "java", "react-native"]
 
 export default function Portfolio() {
-  const [selectedCategory, setSelectedCategory] = useState("all")
+  const [filter, setFilter] = useState<Filter>("all")
 
-  const categories = ["all", "react", "java", "react-native"]
-
-  const works = [
-    {
-      id: 1,
-      title: "Instagram Clone",
-      category: "react-native",
-      image: "https://placehold.co/600x400/6366f1/ffffff?text=Instagram+Clone%0A📱+React+Native+Mobile",
-      year: "2024",
-      tech: "React Native",
-    },
-    {
-      id: 2,
-      title: "Music Player",
-      category: "react",
-      image: "https://placehold.co/600x400/ec4899/ffffff?text=Music+Player%0A🎵+React+Tailwind+CSS",
-      year: "2024",
-      tech: "ReactJS + Tailwind CSS",
-    },
-    {
-      id: 3,
-      title: "Ecommerce App",
-      category: "react",
-      image: "https://placehold.co/600x400/10b981/ffffff?text=Ecommerce+App%0A🛒+React+Spring+Boot",
-      year: "2024",
-      tech: "ReactJS + Spring Boot",
-    },
-    {
-      id: 4,
-      title: "BanReservas Migration",
-      category: "java",
-      image: "https://placehold.co/600x400/f59e0b/ffffff?text=Enterprise+Migration%0A⚙️+Java+Spring+Quarkus",
-      year: "2023",
-      tech: "Java + Spring Boot + Quarkus",
-    },
-    {
-      id: 5,
-      title: "Web Application",
-      category: "java",
-      image: "https://placehold.co/600x400/3b82f6/ffffff?text=Enterprise+Web+App%0A💼+Java+JSF",
-      year: "2023",
-      tech: "Java + JSF",
-    },
-    {
-      id: 6,
-      title: "React Dashboard",
-      category: "react",
-      image: "https://placehold.co/600x400/8b5cf6/ffffff?text=Analytics+Dashboard%0A📊+React+TypeScript",
-      year: "2024",
-      tech: "ReactJS + TypeScript",
-    },
-  ]
-
-  const filteredWorks = works.filter((work) => (selectedCategory === "all" ? true : work.category === selectedCategory))
+  const filtered = useMemo(
+    () => (filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.category === filter)),
+    [filter],
+  )
 
   return (
-    <section className="h-screen snap-center flex items-center justify-center">
-      <div className="container mx-auto px-4 w-full">
-        <motion.div 
-          className="mb-12 flex flex-wrap justify-center gap-4"
-          initial={{ opacity: 0, y: 30 }}
+    <section
+      id="projects"
+      className="relative h-screen snap-center flex items-center justify-center"
+    >
+      <div className="container mx-auto px-6 w-full max-w-7xl">
+        <motion.div
+          className="mb-6 text-center"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {categories.map((category) => (
-            <motion.div
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false }}
-              transition={{ duration: 0.8, delay: categories.indexOf(category) * 0.1 }}
-            >
-              <Button
-                variant={selectedCategory === category ? "default" : "outline"}
-                onClick={() => setSelectedCategory(category)}
-                className="text-sm capitalize px-8 py-1.5 h-auto min-w-[120px] rounded-none"
-              >
-                {category === "all" ? "All" : category === "react" ? "React" : category === "java" ? "Java" : "React Native"}
-              </Button>
-            </motion.div>
-          ))}
+          <p className="mb-3 text-xs uppercase tracking-[0.4em] text-[hsl(var(--accent-red))]">
+            Selected work
+          </p>
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            Projects
+          </h2>
         </motion.div>
-        <motion.div layout className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence>
-            {filteredWorks.map((work, index) => (
-              <motion.div
-                key={work.id}
-                layout
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, margin: "-50px" }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 1, delay: index * 0.1, ease: "easeOut" }}
+
+        <motion.div
+          className="mb-6 flex flex-wrap justify-center gap-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          role="tablist"
+          aria-label="Project categories"
+        >
+          {FILTERS.map((f) => {
+            const active = filter === f
+            return (
+              <button
+                key={f}
+                role="tab"
+                aria-selected={active}
+                onClick={() => setFilter(f)}
+                className={`px-5 py-2 text-xs uppercase tracking-widest transition-all ${
+                  active
+                    ? "bg-[hsl(var(--accent-red))] text-white shadow-[0_0_18px_hsl(var(--accent-red)/0.5)]"
+                    : "border border-white/15 bg-white/5 text-zinc-300 hover:border-white/35 hover:text-white"
+                }`}
               >
-                <Card 
-                  className="overflow-hidden transition-all duration-300 hover:translate-x-1 hover:-translate-y-1 cursor-pointer shadow-none bg-transparent rounded-none border-2"
-                  style={{
-                    background: "rgba(240, 223, 223, 0.09)",
-                    borderRadius: "0",
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                    backdropFilter: "blur(5.4px)",
-                    WebkitBackdropFilter: "blur(5.4px)",
-                    border: "2px solid rgba(240, 223, 223, 0.24)",
-                  }}
+                {CATEGORY_LABELS[f]}
+              </button>
+            )
+          })}
+        </motion.div>
+
+        <motion.div
+          layout
+          className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
+          <AnimatePresence mode="popLayout">
+            {filtered.map((p, index) => (
+              <motion.article
+                key={p.id}
+                layout
+                initial={{ y: 20 }}
+                whileInView={{ y: 0 }}
+                viewport={{ once: false, amount: 0.01 }}
+                exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                transition={{ duration: 0.45, delay: index * 0.03, ease: "easeOut" }}
+                className="glass group relative flex flex-col overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[hsl(var(--accent-red)/0.5)]"
+              >
+                <div
+                  className="relative aspect-[5/3] overflow-hidden"
+                  style={{ background: CATEGORY_GRADIENT[p.category] }}
                 >
-                  <CardContent className="p-0">
-                    <div className="group relative">
-                      <div className="aspect-video bg-gradient-to-br from-white/10 to-white/5 flex flex-col items-center justify-center p-6">
-                        <h3 className="text-xl font-semibold text-white mb-2">{work.title}</h3>
-                        <p className="text-sm text-gray-400 mb-1">{work.tech}</p>
-                        <p className="text-xs text-gray-500">{work.year}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                  <Image
+                    src={p.imageUrl}
+                    alt={`${p.title} thumbnail`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 25vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.06),transparent_60%)]"
+                    aria-hidden="true"
+                  />
+                  <span className="absolute right-2 top-2 rounded-full bg-black/55 px-2 py-0.5 text-[9px] uppercase tracking-widest text-white/80 backdrop-blur-sm">
+                    {p.year}
+                  </span>
+                  <span
+                    className="absolute left-2 bottom-2 inline-block h-1 w-8 bg-[hsl(var(--accent-red))]"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div className="flex flex-1 flex-col p-3">
+                  <h3 className="mb-1 text-sm font-semibold text-white">
+                    {p.title}
+                  </h3>
+                  <p className="mb-3 line-clamp-2 text-xs leading-relaxed text-zinc-300">
+                    {p.description}
+                  </p>
+
+                  <ul className="mb-3 flex flex-wrap gap-1">
+                    {p.techTags.slice(0, 3).map((t) => (
+                      <li
+                        key={t}
+                        className="rounded-full border border-white/10 bg-white/5 px-1.5 py-0.5 text-[9px] uppercase tracking-wider text-zinc-300"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto flex gap-1.5">
+                    {p.repoUrl && (
+                      <a
+                        href={p.repoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 border border-white/15 bg-white/5 px-2 py-1 text-[10px] uppercase tracking-widest text-zinc-200 transition-colors hover:border-[hsl(var(--accent-red)/0.6)] hover:text-white"
+                      >
+                        Code →
+                      </a>
+                    )}
+                    {p.liveUrl && (
+                      <a
+                        href={p.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-[hsl(var(--accent-red))] px-2 py-1 text-[10px] uppercase tracking-widest text-white transition-all hover:bg-[hsl(var(--accent-red)/0.85)]"
+                      >
+                        Demo →
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.article>
             ))}
           </AnimatePresence>
         </motion.div>
@@ -132,4 +162,3 @@ export default function Portfolio() {
     </section>
   )
 }
-

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -34,6 +32,8 @@
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
 
+    --accent-red: 350 70% 52%;
+
     --radius: 0.5rem;
   }
 
@@ -65,30 +65,25 @@
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
     --ring: 0 0% 83.1%;
+
+    --accent-red: 350 75% 55%;
   }
 }
 
 @layer base {
   * {
     @apply border-border;
-    font-family: 'Onest', sans-serif;
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Onest', sans-serif;
-  }
-  html {
-    font-family: 'Onest', sans-serif;
   }
 }
 
-/* Smooth scroll with slower speed */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 0;
 }
 
-/* Custom scrollbar styling */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -98,126 +93,114 @@ html {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: hsl(var(--accent-red) / 0.7);
 }
 
-/* Animated Gradient Background */
-.gradient-bg-container {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-
+/* Animated gradient blobs (4 blobs, full opacity for original look) */
 .gradient-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
+  filter: blur(120px);
   opacity: 0.85;
   will-change: transform;
 }
 
 .gradient-blob-1 {
-  width: 1000px;
-  height: 1000px;
-  background: radial-gradient(circle, rgba(220, 20, 60, 1) 0%, rgba(139, 0, 0, 0.7) 30%, transparent 70%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(circle, rgba(180, 30, 50, 0.95) 0%, rgba(80, 10, 20, 0.55) 35%, transparent 70%);
   top: 10%;
   left: 10%;
-  animation: float1 8s ease-in-out infinite;
+  animation: float1 14s ease-in-out infinite;
 }
 
 .gradient-blob-2 {
-  width: 1100px;
-  height: 1100px;
-  background: radial-gradient(circle, rgba(178, 34, 34, 0.95) 0%, rgba(139, 0, 0, 0.6) 30%, transparent 70%);
-  top: 60%;
-  right: 15%;
-  animation: float2 10s ease-in-out infinite;
+  width: 1000px;
+  height: 1000px;
+  background: radial-gradient(circle, rgba(140, 25, 40, 0.9) 0%, rgba(40, 5, 10, 0.55) 35%, transparent 70%);
+  top: 55%;
+  right: 10%;
+  animation: float2 18s ease-in-out infinite;
 }
 
 .gradient-blob-3 {
-  width: 950px;
-  height: 950px;
-  background: radial-gradient(circle, rgba(220, 20, 60, 0.9) 0%, rgba(0, 0, 0, 0.7) 30%, transparent 70%);
-  bottom: 20%;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(200, 35, 55, 0.85) 0%, rgba(70, 8, 18, 0.5) 35%, transparent 70%);
+  top: 30%;
   left: 30%;
-  animation: float3 12s ease-in-out infinite;
+  animation: float3 16s ease-in-out infinite;
 }
 
 .gradient-blob-4 {
-  width: 1050px;
-  height: 1050px;
-  background: radial-gradient(circle, rgba(139, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 30%, transparent 70%);
-  top: 30%;
-  right: 40%;
-  animation: float4 9s ease-in-out infinite;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(160, 28, 45, 0.8) 0%, rgba(50, 6, 14, 0.45) 35%, transparent 70%);
+  bottom: 10%;
+  right: 30%;
+  animation: float4 20s ease-in-out infinite;
 }
 
 @keyframes float1 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(150px, -100px) scale(1.3);
-  }
-  50% {
-    transform: translate(-120px, 150px) scale(0.7);
-  }
-  75% {
-    transform: translate(100px, 100px) scale(1.2);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(120px, -80px) scale(1.15); }
 }
 
 @keyframes float2 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(-130px, 120px) scale(0.8);
-  }
-  50% {
-    transform: translate(160px, -80px) scale(1.4);
-  }
-  75% {
-    transform: translate(-100px, -130px) scale(0.6);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-100px, 90px) scale(0.9); }
 }
 
 @keyframes float3 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(120px, 150px) scale(1.5);
-  }
-  50% {
-    transform: translate(-140px, -100px) scale(0.6);
-  }
-  75% {
-    transform: translate(110px, -80px) scale(1.3);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-80px, -70px) scale(1.1); }
 }
 
 @keyframes float4 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(-150px, 80px) scale(0.7);
-  }
-  50% {
-    transform: translate(130px, 160px) scale(1.5);
-  }
-  75% {
-    transform: translate(-110px, -140px) scale(0.8);
-  }
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(90px, 60px) scale(0.95); }
 }
 
+/* Subtle grain overlay for premium texture */
+.noise-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.6'/></svg>");
+}
+
+/* Reusable glass card */
+.glass {
+  background: rgba(240, 223, 223, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(240, 223, 223, 0.14);
+}
+
+/* Accent ring helper */
+.accent-ring {
+  box-shadow: 0 0 0 1px hsl(var(--accent-red) / 0.6),
+              0 8px 30px -8px hsl(var(--accent-red) / 0.35);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .gradient-blob {
+    animation: none !important;
+  }
+}
